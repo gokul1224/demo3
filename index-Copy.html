@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html oncontextmenu="return false">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #4682b4;
+  font-family: 'Roboto', sans-serif;
+  display: inline;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+
+h1 {
+  background-color: #4682b4;
+  color: #d7b75a;
+  font-family: "Times New Roman", Times, serif;
+  align-items: center;
+  margin: 0;
+}
+
+
+
+.container {
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  align-items: center;
+  overflow: visible;
+  width: 100%;
+  
+}
+
+.title {
+   font-size: 200%;
+   margin: 0px;
+}
+
+.subtitle {
+  display: inline-block;
+  margin: 10px 0 20px;
+  opacity: 100%;
+  margin: 0px;
+}
+
+.header {
+  background-color: #d7b75a;
+  color: #000000;
+  align-items: center;
+  padding: 30px 20px;
+}
+
+.header input {
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 0;
+  border-radius: 50px;
+  color: #000000;
+  font-size: 14px;
+  padding: 10px 15px;
+  width: 40%;
+}
+
+.header input:focus {
+  outline: none;
+}
+
+.user-list {
+  background-color: #5e5d5d;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.user-list1 {
+  background-color: #4e8cbf;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.blink {
+  animation: blinker 1s linear infinite;
+  color: #4ce629;
+  font-family: sans-serif;
+}
+@keyframes blinker {
+  50% {
+      opacity: 20%;
+  }
+}
+
+.blink1 {
+  animation: blinker 0.5s linear infinite;
+  color: #ff0000;
+  font-family: sans-serif;
+}
+@keyframes blinker {
+  50% {
+      opacity: 20%;
+  }
+}
+
+.user-list li {
+  display: flex;
+  padding: 5px;
+}
+
+.user-list img {
+  border-radius: 50%;
+  object-fit: cover;
+  height: 50px;
+  width: 50px;
+}
+
+.user-list .user-info {
+  margin-left: 10px;
+}
+
+.user-list .user-info h4 {
+  margin: 0 0 10px;
+}
+
+.user-list .user-info p {
+  font-size: 12px;
+}
+
+.user-list li:not(:last-of-type) {
+  border-bottom: 1px solid #eee;
+}
+
+.user-list li.hide {
+  display: none;
+}
+</style>
+    <title>Home-PMS</title>
+  </head>
+  <body>
+    <div class="container1"><h1>Welcome !</h1><a><small class="text">Need help? <a href="help.html">Click here</a> </small></a></div>
+    <div class="container">
+      <header class="header">
+        <h4 class="title">PMS-Project Management Server📡</h4>
+        <small class="subtitle">Enter the IPID/Related Keyword:</small>
+        <input type="text" id="filter" placeholder="Easy-Finder">
+        <small class="subtitle1" id="demo1"></small>
+        <select name="selection" id="server" onchange="check()">
+          <option value="Sun">Sun</option>
+          <option value="Mercury">Mercury</option>
+          <option value="Venus">Venus</option>
+          <option value="Earth">Earth</option>
+          <option value="Mars">Mars</option>
+          <option value="Jupiter">Jupiter</option>
+          <option value="Saturn">Saturn</option>
+          <option value="Uranus">Uranus</option>
+          <option value="Neptune">Neptune</option>
+          <option value="Pluto">Pluto</option>
+        </select>
+        <small class="subtitle1" id="demo2"></small>
+        <a href="index.html">Back to Home 🏃</a> </small></a>
+      </header>
+      <footer><b></b></footer>
+      <ul id="result" class="user-list">
+        
+        <li>
+          <h3>!!!Err Code:1001<p></p><a><small class="text">Need help? <a href="help.html">Click here</a> </h3>
+          
+        </li>
+      </ul>
+      <ul id="result1" class="user-list1">
+        
+        <li>
+  
+        </li>
+      </ul>
+    </div>
+    <script>const result = document.getElementById('result')
+const result1 = document.getElementById('result1')
+const filter = document.getElementById('filter')
+
+const listItems = []
+document.getElementById("demo1").innerHTML = `<small class="subtitle1" id="demo1"><b>Select Server:</b></small>`;
+getData1()
+    
+  async function getData1() {
+    const res = await fetch('https://my-json-server.typicode.com/gokul1224/demo3/db')
+
+    const { results } = await res.json()
+
+    // Clear result
+    result1.innerHTML = ''
+    results.forEach(user => {
+        const li = document.createElement('li')
+
+        listItems.push(li)
+
+            li.innerHTML = `
+            <h3 class="blink"><b>${user.home.updates}</b><p></p></h3><a><small class="text"><b>${user.home.version}</b><a href=${user.home.download}><b>Click here</b></a> 
+            <h2 class="blink1"><b>${user.home.breaking}</b><p></p><a><small class="text"></h2>
+            <marquee behavior="scroll" direction="left"><h2><b>${user.home.content}</b></h2></marquee>
+            `
+        result1.appendChild(li)           
+    })
+    
+}
+
+
+function check() {
+  var name1 = document.getElementById('server').value
+  
+  if (name1 == 'Earth') {
+    document.getElementById("demo1").innerHTML = `<small class="subtitle1" id="demo1"><b>Selected Server:</b></small>`;
+    document.getElementById("server").innerHTML = `<option value="Mercury">Connected(Earth)</option>`;
+    document.getElementById("demo2").innerHTML = `<small class="subtitle1" id="demo1">🔒</small>`;
+    getData()
+
+filter.addEventListener('input', (e) => filterData(e.target.value))
+    async function getData() {
+        const res = await fetch('Userdata1.JSON')
+    
+        const { results } = await res.json()
+    
+        // Clear result
+        result.innerHTML = ''
+        result1.innerHTML = ''
+        results.forEach(user => {
+            const li = document.createElement('li')
+    
+            listItems.push(li)
+    
+                li.innerHTML = `
+                <img src="${user.picture.large}" alt="${user.Description.first}">
+                <div class="user-info">
+                    <a href=${user.Description.next_link}><b>${user.Description.first}${user.Description.last}</b></a><p></p>
+                    <p>${user.Description.Rev}</p>
+                </div>
+                <div class="user-info">
+                    <p><b>${user.Description.title}</b></p>
+                </div>
+                <div class="user-info">
+                <p><b> || ${user.Projct_Cat} - ✔ || ${user.Description.R_date} -  ✔ ||-- ${user.State} </b></p>
+                </div>
+                `
+            result.appendChild(li)      
+    
+            
+        })
+        
+    }
+    function filterData(searchTerm) {
+        listItems.forEach(item => {
+            if(item.innerText.toLowerCase().includes(searchTerm.toLowerCase())) {
+                item.classList.remove('hide')
+            } else {
+                item.classList.add('hide')
+            
+            }
+        })
+    }
+  }else if (name1 == 'Mars')  {
+    document.getElementById("demo1").innerHTML = `<small class="subtitle1" id="demo1"><b>Selected Server:</b></small>`;
+    document.getElementById("server").innerHTML = `<option value="Mercury">Connected(Mars)</option>`;
+    document.getElementById("demo2").innerHTML = `<small class="subtitle1" id="demo1">🔒</small>`;
+    getData()
+
+filter.addEventListener('input', (e) => filterData(e.target.value))
+    async function getData() {
+        const res = await fetch('https://my-json-server.typicode.com/gokul1224/demo2/db')
+    
+        const { results } = await res.json()
+    
+        // Clear result
+        result.innerHTML = ''
+        result1.innerHTML = ''
+        results.forEach(user => {
+            const li = document.createElement('li')
+    
+            listItems.push(li)
+    
+                li.innerHTML = `
+                <img src="${user.picture.large}" alt="${user.Description.first}">
+                <div class="user-info">
+                    <a href=${user.Description.next_link}><b>${user.Description.first}${user.Description.last}</b></a><p></p>
+                    <p>${user.Description.Rev}</p>
+                </div>
+                <div class="user-info">
+                    <p><b>${user.Description.title}</b></p>
+                </div>
+                <div class="user-info">
+                <p><b> || ${user.Projct_Cat} - ✔ || ${user.Description.R_date} -  ✔ ||-- ${user.State} </b></p>
+                </div>
+                `
+            result.appendChild(li)      
+    
+            
+        })
+        
+    }
+    function filterData(searchTerm) {
+        listItems.forEach(item => {
+            if(item.innerText.toLowerCase().includes(searchTerm.toLowerCase())) {
+                item.classList.remove('hide')
+            } else {
+                item.classList.add('hide')
+            
+            }
+        })
+    }
+  }else if (name1 == 'Venus')  {
+    document.getElementById("demo1").innerHTML = `<small class="subtitle1" id="demo1"><b>Selected Server:</b></small>`;
+    document.getElementById("server").innerHTML = `<option value="Mercury">Connected(Venus)</option>`;
+    document.getElementById("demo2").innerHTML = `<small class="subtitle1" id="demo1">🔒</small>`;
+    getData()
+
+filter.addEventListener('input', (e) => filterData(e.target.value))
+    async function getData() {
+        const res = await fetch('https://my-json-server.typicode.com/gokul1224/demo1/db')
+    
+        const { results } = await res.json()
+    
+        // Clear result
+        result.innerHTML = ''
+        result1.innerHTML = ''
+        results.forEach(user => {
+            const li = document.createElement('li')
+    
+            listItems.push(li)
+    
+                li.innerHTML = `
+                <img src="${user.User1.Profile_pic}" alt="${user.User1.first}">
+                <div class="user-info">
+                    <a href=${user.User1.next_link1}><b>${user.User1.User_ID}</b></a><p></p>
+                </div>
+                `
+            result.appendChild(li)      
+    
+            
+        })
+        
+    }
+    function filterData(searchTerm) {
+        listItems.forEach(item => {
+            if(item.innerText.toLowerCase().includes(searchTerm.toLowerCase())) {
+                item.classList.remove('hide')
+            } else {
+                item.classList.add('hide')
+            
+            }
+        })
+    }
+  }else {
+
+
+
+  }
+}
+
+
+
+</script>
+  </body>
+</html>
